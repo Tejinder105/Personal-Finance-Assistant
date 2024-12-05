@@ -3,12 +3,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+// structure for income
 typedef struct {
     char source[50];
     float amount;
     char date[15];
 } Income;
 
+// structure for expense
 typedef struct {
     char category[50];
     char subcategory[50];
@@ -16,6 +18,7 @@ typedef struct {
     char date[15];
 } Expense;
 
+//structure for profile
 typedef struct {
     char username[50];
     char password[50];
@@ -43,6 +46,7 @@ void createProfile();
 void loginProfile();
 void calculateSavings();
 
+//for loading the previous data
 void loadData() {
     FILE *file = fopen("profiles.dat", "rb");
     if (!file) {
@@ -54,7 +58,7 @@ void loadData() {
     fclose(file);
     printf("Data loaded successfully.\n");
 }
-
+// for saving the new data
 void saveData() {
     FILE *file = fopen("profiles.dat", "wb");
     if (!file) {
@@ -66,7 +70,7 @@ void saveData() {
     fclose(file);
     printf("Data saved successfully.\n");
 }
-
+// for creating profile
 void createProfile() {
     if (profileCnt >= 100) {
         printf("Maximum profile limit reached. Cannot create a new profile.\n");
@@ -92,6 +96,8 @@ void createProfile() {
     printf("Profile created successfully!\n");
 }
 
+//for logging in
+
 void loginProfile() {
     char username[50], password[50];
     printf("Enter your username: ");
@@ -114,6 +120,8 @@ void loginProfile() {
     printf("Invalid username or password. Try again.\n");
 }
 
+//for calulate savings
+
 void calculateSavings() {
     Profile *profile = &profiles[currentProfile];
     float totalIncome = 0, totalExpenses = 0;
@@ -133,12 +141,16 @@ void calculateSavings() {
     }
 }
 
+//for setting up budget
+
 void addBudget() {
     Profile *profile = &profiles[currentProfile];
     printf("Enter your monthly budget: ");
     scanf("%f", &profile->budget);
     printf("Budget set successfully! Remaining budget: %.2f\n", profile->budget);
 }
+
+//for adding income
 
 void addIncome() {
     Profile *profile = &profiles[currentProfile];
@@ -165,6 +177,8 @@ void addIncome() {
     calculateSavings();
     printf("Income added successfully! Current savings: %.2f\n", profile->savings);
 }
+
+// for adding expense
 
 void addExpense() {
     Profile *profile = &profiles[currentProfile];
@@ -201,6 +215,7 @@ void addExpense() {
     printf("Expense added successfully! Current savings: %.2f\n", profile->savings);
 }
 
+//for view report
 void viewReport() {
     Profile *profile = &profiles[currentProfile];
     printf("\n----- INCOME REPORT -----\n");
@@ -219,6 +234,7 @@ void viewReport() {
     printf("Total Savings: %.2f\n", profile->savings);
 }
 
+// for initiating main personal system
 void personalSystem() {
     int choice;
     do {
@@ -254,7 +270,9 @@ int main() {
         printf("3. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
-
+        
+        // at the starting of function
+        
         switch (choice) {
             case 1: createProfile(); break;
             case 2: loginProfile(); break;
